@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Silverback Processing</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+    <div class="page-shell processing-shell">
+        <div class="glass-card processing-card">
+            <span class="eyebrow">Flash In Progress</span>
+            <h2>Processing your bridge request</h2>
+            <p>We are validating payment, broadcasting to the mempool, and waiting for confirmations.</p>
+
+            <div class="progress-container">
+                <div class="progress-step active">Payment detected</div>
+                <div class="progress-step" id="stepTwo">Broadcasting</div>
+                <div class="progress-step" id="stepThree">Confirmations</div>
+                <div class="progress-step" id="stepFour">Completed</div>
+            </div>
+
+            <div class="progress-bar">
+                <div id="progressFill" class="progress-fill"></div>
+            </div>
+
+            <div class="loading-meta">
+                <p id="progressMessage">Analyzing network and confirming transaction.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const steps = [
+            { id: 1, label: 'Payment detected', target: 'stepTwo', progress: 30 },
+            { id: 2, label: 'Broadcasting to mempool', target: 'stepThree', progress: 60 },
+            { id: 3, label: '6 confirmations received', target: 'stepFour', progress: 85 },
+            { id: 4, label: 'Bridge complete', target: '', progress: 100 }
+        ];
+        let index = 0;
+
+        function advanceStep() {
+            const step = steps[index];
+            if (!step) return;
+
+            document.getElementById('progressFill').style.width = step.progress + '%';
+            if (step.target) {
+                document.getElementById(step.target).classList.add('active');
+            }
+            document.getElementById('progressMessage').innerText = step.label + '...';
+
+            index += 1;
+            if (index < steps.length) {
+                setTimeout(advanceStep, 5000);
+            } else {
+                const paymentId = new URLSearchParams(window.location.search).get('payment_id');
+                window.location.href = `/success?payment_id=${paymentId}`;
+            }
+        }
+
+        setTimeout(advanceStep, 1500);
+    </script>
+</body>
+</html>

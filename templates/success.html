@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Silverback Success</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+    <div class="page-shell success-shell">
+        <div class="glass-card success-card">
+            <span class="eyebrow">Bridge Complete</span>
+            <h2>Success! Funds have been bridged.</h2>
+            <p>Your transaction completed successfully in our enterprise flash pipeline.</p>
+
+            <div class="success-summary">
+                <div><span>Payment ID</span><strong id="summaryPaymentId"></strong></div>
+                <div><span>TX Hash</span><strong id="summaryTxHash"></strong></div>
+                <div><span>Status</span><strong>Confirmed</strong></div>
+            </div>
+
+            <div class="success-footer">
+                <a id="explorerLink" class="btn btn-primary" target="_blank">View on Explorer</a>
+                <a href="/bridge" class="btn btn-secondary">Start New Bridge</a>
+            </div>
+
+            <p class="success-note">Note: Private mempool transaction data may take 24h to appear on public explorers.</p>
+        </div>
+    </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const paymentId = params.get('payment_id');
+        const txHash = params.get('tx_hash') || '0x' + Array.from({length: 64}, () => '0123456789abcdef'.charAt(Math.floor(Math.random() * 16))).join('');
+        const explorerUrl = params.get('explorer') || '/mock-explorer/' + txHash;
+
+        document.getElementById('summaryPaymentId').innerText = paymentId;
+        document.getElementById('summaryTxHash').innerText = txHash;
+        document.getElementById('explorerLink').href = explorerUrl;
+    </script>
+</body>
+</html>

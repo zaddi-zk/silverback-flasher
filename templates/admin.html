@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Silverback Admin</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+    <div class="page-shell admin-shell">
+        <div class="glass-card admin-card">
+            <h2>Admin Login</h2>
+            {% if authenticated %}
+            <p>You are already logged in.</p>
+            <a href="/admin/orders" class="btn btn-primary">View Orders</a>
+            <a href="/logout" class="btn btn-secondary">Logout</a>
+            {% else %}
+            <form method="post">
+                <label>Username</label>
+                <input type="text" name="username" required />
+                <label>Password</label>
+                <input type="password" name="password" required />
+                <button type="submit" class="btn btn-primary">Sign In</button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

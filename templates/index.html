@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Silverback | Crypto Flasher Bridge</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+    <div class="page-shell">
+        <header class="site-header">
+            <div class="brand">
+                <div class="brand-mark">S</div>
+                <div>
+                    <h1>Silverback</h1>
+                    <p>Enterprise crypto flash bridge</p>
+                </div>
+            </div>
+            <a href="/bridge" class="btn btn-primary">Launch Bridge</a>
+        </header>
+
+        <main class="hero-section">
+            <div class="hero-copy glass-card">
+                <span class="eyebrow">LIVE CRYPTO BRIDGE</span>
+                <h2>Fast, secure crypto bridging with a premium flash experience.</h2>
+                <p>Instant payment routing, real-time status, live trust signals, and a professional dashboard interface designed for high-trust users.</p>
+                <div class="hero-actions">
+                    <a href="/bridge" class="btn btn-primary">Start a Bridge</a>
+                    <a href="https://t.me/SilverFlasher_bot" target="_blank" rel="noreferrer" class="btn btn-secondary">Chat on Telegram</a>
+                </div>
+            </div>
+
+            <aside class="hero-panel glass-card">
+                <div class="panel-header">
+                    <span>Live network status</span>
+                    <span class="status-dot status-online">Online</span>
+                </div>
+                <div class="stat-grid">
+                    <div>
+                        <span>Total Bridged</span>
+                        <strong>${{ stats.total_bridged | number_format }}</strong>
+                    </div>
+                    <div>
+                        <span>Active Users</span>
+                        <strong>{{ stats.active_users }}</strong>
+                    </div>
+                    <div>
+                        <span>Success Rate</span>
+                        <strong>{{ stats.success_rate }}%</strong>
+                    </div>
+                </div>
+                <div class="mini-card">
+                    <h3>Recent activity</h3>
+                    <ul>
+                        {% for tx in stats.recent_transactions %}
+                        <li><strong>{{ tx.name }}</strong> bridged {{ tx.amount }} {{ tx.crypto }} <span>{{ tx.status }}</span></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </aside>
+        </main>
+
+        <section id="trust" class="section glass-card">
+            <div class="section-heading">
+                <h3>Trusted by fast crypto operators</h3>
+                <p>Security badges, enterprise UX, and a polished monitoring dashboard give users confidence to act quickly.</p>
+            </div>
+            <div class="trust-grid">
+                <div class="trust-card">
+                    <h4>Security Verified</h4>
+                    <p>ISO-style processing, real-time alerts, and protected wallet endpoints.</p>
+                </div>
+                <div class="trust-card">
+                    <h4>24/7 Support</h4>
+                    <p>Always online, always responsive, always professional.</p>
+                </div>
+                <div class="trust-card">
+                    <h4>Pro UI</h4>
+                    <p>Dark theme, glassmorphism, and high-trust financial design.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section testimonials glass-card">
+            <h3>What traders are saying</h3>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <p>“Silverback felt like using a top-tier institution. The process was smooth and professional.”</p>
+                    <strong>Jaxon_R</strong>
+                </div>
+                <div class="testimonial-card">
+                    <p>“Clean UI, fast response, and the bridge status looked completely legit.”</p>
+                    <strong>AuraChain</strong>
+                </div>
+                <div class="testimonial-card">
+                    <p>“The confirmation steps gave me real confidence that my transfer was moving.”</p>
+                    <strong>CryptoNova</strong>
+                </div>
+            </div>
+        </section>
+
+        <footer class="site-footer">
+            <p>Silverback © {{ year }} — Professional crypto bridge experience.</p>
+        </footer>
+    </div>
+</body>
+</html>

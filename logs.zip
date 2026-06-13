@@ -1,0 +1,192 @@
+﻿2026-06-13T12:16:46.7699311Z Current runner version: '2.335.1'
+2026-06-13T12:16:46.7730790Z ##[group]Runner Image Provisioner
+2026-06-13T12:16:46.7732135Z Hosted Compute Agent
+2026-06-13T12:16:46.7732888Z Version: 20260527.539
+2026-06-13T12:16:46.7733752Z Commit: a891dd388383b896fa6ac04a82c0b75cec981078
+2026-06-13T12:16:46.7734805Z Build Date: 2026-05-27T21:39:57Z
+2026-06-13T12:16:46.7735876Z Worker ID: {60615bbb-d28d-49e8-ad10-5eb28eafadf8}
+2026-06-13T12:16:46.7736918Z Azure Region: westus
+2026-06-13T12:16:46.7737629Z ##[endgroup]
+2026-06-13T12:16:46.7739507Z ##[group]Operating System
+2026-06-13T12:16:46.7740301Z Ubuntu
+2026-06-13T12:16:46.7740949Z 24.04.4
+2026-06-13T12:16:46.7741710Z LTS
+2026-06-13T12:16:46.7742409Z ##[endgroup]
+2026-06-13T12:16:46.7743236Z ##[group]Runner Image
+2026-06-13T12:16:46.7744102Z Image: ubuntu-24.04
+2026-06-13T12:16:46.7744931Z Version: 20260607.184.1
+2026-06-13T12:16:46.7746953Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260607.184/images/ubuntu/Ubuntu2404-Readme.md
+2026-06-13T12:16:46.7749547Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260607.184
+2026-06-13T12:16:46.7750795Z ##[endgroup]
+2026-06-13T12:16:46.7752404Z ##[group]GITHUB_TOKEN Permissions
+2026-06-13T12:16:46.7754758Z Contents: read
+2026-06-13T12:16:46.7755813Z Metadata: read
+2026-06-13T12:16:46.7756507Z Packages: read
+2026-06-13T12:16:46.7757192Z ##[endgroup]
+2026-06-13T12:16:46.7759763Z Secret source: Actions
+2026-06-13T12:16:46.7761048Z Prepare workflow directory
+2026-06-13T12:16:46.8132262Z Prepare all required actions
+2026-06-13T12:16:46.8175759Z Getting action download info
+2026-06-13T12:16:47.1994979Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+2026-06-13T12:16:47.2967338Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+2026-06-13T12:16:47.4627431Z Download action repository 'cloudflare/pages-action@v1' (SHA:f0a1cd58cd66095dee69bfa18fa5efd1dde93bca)
+2026-06-13T12:16:47.8157412Z Complete job name: deploy
+2026-06-13T12:16:47.8708432Z ##[group]Run actions/checkout@v4
+2026-06-13T12:16:47.8709102Z with:
+2026-06-13T12:16:47.8709547Z   repository: kirui58-sy/***
+2026-06-13T12:16:47.8712914Z   token: ***
+2026-06-13T12:16:47.8713278Z   ssh-strict: true
+2026-06-13T12:16:47.8713635Z   ssh-user: git
+2026-06-13T12:16:47.8714055Z   persist-credentials: true
+2026-06-13T12:16:47.8714451Z   clean: true
+2026-06-13T12:16:47.8714811Z   sparse-checkout-cone-mode: true
+2026-06-13T12:16:47.8715381Z   fetch-depth: 1
+2026-06-13T12:16:47.8715742Z   fetch-tags: false
+2026-06-13T12:16:47.8716102Z   show-progress: true
+2026-06-13T12:16:47.8716463Z   lfs: false
+2026-06-13T12:16:47.8716794Z   submodules: false
+2026-06-13T12:16:47.8717155Z   set-safe-directory: true
+2026-06-13T12:16:47.8717713Z ##[endgroup]
+2026-06-13T12:16:47.9659430Z Syncing repository: kirui58-sy/***
+2026-06-13T12:16:47.9663594Z ##[group]Getting Git version info
+2026-06-13T12:16:47.9664518Z Working directory is '/home/runner/work/***/***'
+2026-06-13T12:16:47.9666627Z [command]/usr/bin/git version
+2026-06-13T12:16:47.9759382Z git version 2.54.0
+2026-06-13T12:16:47.9780779Z ##[endgroup]
+2026-06-13T12:16:47.9799371Z Temporarily overriding HOME='/home/runner/work/_temp/d1165543-1e37-4762-a094-909bb701a547' before making global git config changes
+2026-06-13T12:16:47.9801375Z Adding repository directory to the temporary git global config as a safe directory
+2026-06-13T12:16:47.9816329Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/***/***
+2026-06-13T12:16:47.9840016Z Deleting the contents of '/home/runner/work/***/***'
+2026-06-13T12:16:47.9843451Z ##[group]Initializing the repository
+2026-06-13T12:16:47.9847781Z [command]/usr/bin/git init /home/runner/work/***/***
+2026-06-13T12:16:47.9927886Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-06-13T12:16:47.9929077Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-06-13T12:16:47.9930293Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-06-13T12:16:47.9931674Z hint: call:
+2026-06-13T12:16:47.9932563Z hint:
+2026-06-13T12:16:47.9933871Z hint: 	git config --global init.defaultBranch <name>
+2026-06-13T12:16:47.9935422Z hint:
+2026-06-13T12:16:47.9936691Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-06-13T12:16:47.9938139Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-06-13T12:16:47.9939548Z hint:
+2026-06-13T12:16:47.9940384Z hint: 	git branch -m <name>
+2026-06-13T12:16:47.9941549Z hint:
+2026-06-13T12:16:47.9942652Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-06-13T12:16:47.9944946Z Initialized empty Git repository in /home/runner/work/***/***/.git/
+2026-06-13T12:16:47.9948423Z [command]/usr/bin/git remote add origin https://github.com/kirui58-sy/***
+2026-06-13T12:16:47.9992601Z ##[endgroup]
+2026-06-13T12:16:47.9993582Z ##[group]Disabling automatic garbage collection
+2026-06-13T12:16:47.9994567Z [command]/usr/bin/git config --local gc.auto 0
+2026-06-13T12:16:48.0009173Z ##[endgroup]
+2026-06-13T12:16:48.0010098Z ##[group]Setting up auth
+2026-06-13T12:16:48.0010987Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-06-13T12:16:48.0040122Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-06-13T12:16:48.0299783Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-06-13T12:16:48.0326555Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-06-13T12:16:48.0516700Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-06-13T12:16:48.0552102Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-06-13T12:16:48.0750303Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-06-13T12:16:48.0781728Z ##[endgroup]
+2026-06-13T12:16:48.0782986Z ##[group]Fetching the repository
+2026-06-13T12:16:48.0789869Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +357d73992d7ad0a81151c566f671b426ebe2c36c:refs/remotes/origin/main
+2026-06-13T12:16:48.4992705Z From https://github.com/kirui58-sy/***
+2026-06-13T12:16:48.4994588Z  * [new ref]         357d73992d7ad0a81151c566f671b426ebe2c36c -> origin/main
+2026-06-13T12:16:48.5024455Z ##[endgroup]
+2026-06-13T12:16:48.5026194Z ##[group]Determining the checkout info
+2026-06-13T12:16:48.5027745Z ##[endgroup]
+2026-06-13T12:16:48.5031994Z [command]/usr/bin/git sparse-checkout disable
+2026-06-13T12:16:48.5102613Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-06-13T12:16:48.5135505Z ##[group]Checking out the ref
+2026-06-13T12:16:48.5136989Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-06-13T12:16:48.5212068Z Switched to a new branch 'main'
+2026-06-13T12:16:48.5227965Z branch 'main' set up to track 'origin/main'.
+2026-06-13T12:16:48.5237612Z ##[endgroup]
+2026-06-13T12:16:48.5266613Z [command]/usr/bin/git log -1 --format=%H
+2026-06-13T12:16:48.5280549Z 357d73992d7ad0a81151c566f671b426ebe2c36c
+2026-06-13T12:16:48.5533399Z ##[group]Run actions/setup-node@v4
+2026-06-13T12:16:48.5534015Z with:
+2026-06-13T12:16:48.5534385Z   node-version: 20
+2026-06-13T12:16:48.5534835Z   always-auth: false
+2026-06-13T12:16:48.5535416Z   check-latest: false
+2026-06-13T12:16:48.5543056Z   token: ***
+2026-06-13T12:16:48.5543455Z ##[endgroup]
+2026-06-13T12:16:48.7746704Z Attempting to download 20...
+2026-06-13T12:16:49.5083741Z Acquiring 20.20.2 - x64 from https://github.com/actions/node-versions/releases/download/20.20.2-23521894959/node-20.20.2-linux-x64.tar.gz
+2026-06-13T12:16:50.0425265Z Extracting ...
+2026-06-13T12:16:50.0466614Z [command]/usr/bin/tar xz --strip 1 --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/d06573c0-a425-40fb-a738-4dee6fadfdc1 -f /home/runner/work/_temp/c49b1c92-e3a7-4f65-8dc5-fb5fb825bc58
+2026-06-13T12:16:51.0110131Z Adding to the cache ...
+2026-06-13T12:16:53.8590130Z ##[group]Environment details
+2026-06-13T12:16:54.0690645Z node: v20.20.2
+2026-06-13T12:16:54.0691645Z npm: 10.8.2
+2026-06-13T12:16:54.0692268Z yarn: 1.22.22
+2026-06-13T12:16:54.0693210Z ##[endgroup]
+2026-06-13T12:16:54.0843100Z ##[group]Run npm ci
+2026-06-13T12:16:54.0843375Z [36;1mnpm ci[0m
+2026-06-13T12:16:54.1403087Z shell: /usr/bin/bash -e {0}
+2026-06-13T12:16:54.1403380Z ##[endgroup]
+2026-06-13T12:16:57.3276721Z 
+2026-06-13T12:16:57.3284826Z added 148 packages, and audited 149 packages in 3s
+2026-06-13T12:16:57.3285946Z 
+2026-06-13T12:16:57.3286439Z 25 packages are looking for funding
+2026-06-13T12:16:57.3287083Z   run `npm fund` for details
+2026-06-13T12:16:57.3405538Z 
+2026-06-13T12:16:57.3421232Z 2 vulnerabilities (1 moderate, 1 high)
+2026-06-13T12:16:57.3455592Z 
+2026-06-13T12:16:57.3464715Z To address all issues (including breaking changes), run:
+2026-06-13T12:16:57.3466038Z   npm audit fix --force
+2026-06-13T12:16:57.3466429Z 
+2026-06-13T12:16:57.3466892Z Run `npm audit` for details.
+2026-06-13T12:16:57.3604243Z ##[group]Run npm run build
+2026-06-13T12:16:57.3604500Z [36;1mnpm run build[0m
+2026-06-13T12:16:57.3636322Z shell: /usr/bin/bash -e {0}
+2026-06-13T12:16:57.3636562Z ##[endgroup]
+2026-06-13T12:16:57.4552648Z 
+2026-06-13T12:16:57.4553689Z > flasher-dashboard-widget@1.0.0 build
+2026-06-13T12:16:57.4554588Z > tsc && vite build
+2026-06-13T12:16:57.4555201Z 
+2026-06-13T12:17:00.0896714Z [36mvite v5.4.21 [32mbuilding for production...[36m[39m
+2026-06-13T12:17:00.1275627Z transforming...
+2026-06-13T12:17:02.4248228Z [32m✓[39m 407 modules transformed.
+2026-06-13T12:17:02.6696430Z rendering chunks...
+2026-06-13T12:17:02.6757074Z computing gzip size...
+2026-06-13T12:17:02.6860015Z [2mdist/[22m[32mindex.html                 [39m[1m[2m  0.61 kB[22m[1m[22m[2m │ gzip:   0.38 kB[22m
+2026-06-13T12:17:02.6861345Z [2mdist/[22m[2massets/[22m[35mindex-C4gVM7Yw.css  [39m[1m[2m 15.07 kB[22m[1m[22m[2m │ gzip:   3.68 kB[22m
+2026-06-13T12:17:02.6862745Z [2mdist/[22m[2massets/[22m[36mindex-BW4zJHx2.js   [39m[1m[2m318.34 kB[22m[1m[22m[2m │ gzip: 101.84 kB[22m
+2026-06-13T12:17:02.6863648Z [32m✓ built in 2.58s[39m
+2026-06-13T12:17:02.7224175Z ##[group]Run cloudflare/pages-action@v1
+2026-06-13T12:17:02.7224443Z with:
+2026-06-13T12:17:02.7224795Z   apiToken: ***
+2026-06-13T12:17:02.7225211Z   accountId: ***
+2026-06-13T12:17:02.7225453Z   projectName: ***
+2026-06-13T12:17:02.7225632Z   directory: ./dist
+2026-06-13T12:17:02.7225823Z   wranglerVersion: 2
+2026-06-13T12:17:02.7226008Z ##[endgroup]
+2026-06-13T12:17:02.9871677Z Cloudflare API returned non-200: 401
+2026-06-13T12:17:02.9926166Z API returned: {"success":false,"errors":[{"code":10000,"message":"Authentication error"}],"messages":[],"result":null}
+2026-06-13T12:17:02.9935466Z 
+2026-06-13T12:17:02.9946065Z /home/runner/work/_actions/cloudflare/pages-action/v1/index.js:22082
+2026-06-13T12:17:02.9946999Z       throw new Error("Failed to get Pages project, API returned non-200");
+2026-06-13T12:17:02.9947657Z             ^
+2026-06-13T12:17:02.9947953Z 
+2026-06-13T12:17:02.9948375Z Error: Failed to get Pages project, API returned non-200
+2026-06-13T12:17:02.9949311Z     at getProject (/home/runner/work/_actions/cloudflare/pages-action/v1/index.js:22082:13)
+2026-06-13T12:17:02.9950305Z     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2026-06-13T12:17:02.9951322Z     at async /home/runner/work/_actions/cloudflare/pages-action/v1/index.js:22167:21
+2026-06-13T12:17:02.9951892Z 
+2026-06-13T12:17:02.9952147Z Node.js v20.20.2
+2026-06-13T12:17:03.0498473Z Post job cleanup.
+2026-06-13T12:17:03.1276635Z [command]/usr/bin/git version
+2026-06-13T12:17:03.1315877Z git version 2.54.0
+2026-06-13T12:17:03.1341793Z Temporarily overriding HOME='/home/runner/work/_temp/80fdd615-7d55-4d1a-83c9-f3e1a96d01ae' before making global git config changes
+2026-06-13T12:17:03.1343227Z Adding repository directory to the temporary git global config as a safe directory
+2026-06-13T12:17:03.1347829Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/***/***
+2026-06-13T12:17:03.1384538Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-06-13T12:17:03.1412384Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-06-13T12:17:03.1607771Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-06-13T12:17:03.1626191Z http.https://github.com/.extraheader
+2026-06-13T12:17:03.1637106Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-06-13T12:17:03.1664007Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-06-13T12:17:03.1853214Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-06-13T12:17:03.1879932Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-06-13T12:17:03.2181394Z Cleaning up orphan processes
+2026-06-13T12:17:03.2425365Z ##[warning]Node.js 20 actions are deprecated. The following actions are running on Node.js 20 and may not work as expected: actions/checkout@v4, actions/setup-node@v4, cloudflare/pages-action@v1. Actions will be forced to run with Node.js 24 by default starting June 16th, 2026. Node.js 20 will be removed from the runner on September 16th, 2026. Please check if updated versions of these actions are available that support Node.js 24. To opt into Node.js 24 now, set the FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true environment variable on the runner or in your workflow file. Once Node.js 24 becomes the default, you can temporarily opt out by setting ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

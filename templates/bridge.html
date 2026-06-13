@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Silverback Bridge</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+    <div class="page-shell">
+        <header class="site-header">
+            <div class="brand">
+                <div class="brand-mark">S</div>
+                <div>
+                    <h1>Silverback</h1>
+                    <p>Bridge Interface</p>
+                </div>
+            </div>
+            <a href="/admin" class="btn btn-secondary">Admin</a>
+        </header>
+
+        <main class="bridge-shell">
+            <section class="bridge-panel glass-card">
+                <div class="panel-title">
+                    <h2>Step 1: Choose Your Bridge</h2>
+                    <p>Pick an amount and payment method to begin.</p>
+                </div>
+                <div class="bridge-grid">
+                    <div class="amount-card">
+                        <label>Bridge Amount</label>
+                        <div class="amount-options">
+                            <button class="amount-btn" data-value="100">$100</button>
+                            <button class="amount-btn" data-value="500">$500</button>
+                            <button class="amount-btn" data-value="2000">$2,000</button>
+                            <button class="amount-btn" data-value="10000">$10,000</button>
+                        </div>
+                        <div class="custom-input">
+                            <label>Custom amount</label>
+                            <input id="customAmount" type="number" min="20" placeholder="Enter USD amount" />
+                        </div>
+                    </div>
+                    <div class="payment-card">
+                        <label>Payment Method</label>
+                        <div class="payment-options">
+                            {% for code, wallet in wallets.items() %}
+                            <button class="payment-btn" data-currency="{{ code }}" data-address="{{ wallet.address }}">{{ code }}</button>
+                            {% endfor %}
+                        </div>
+                        <div class="selected-info">
+                            <p><strong>Selected:</strong> <span id="selectedCurrency">BTC</span></p>
+                            <p><strong>Wallet address:</strong></p>
+                            <p id="selectedAddress">{{ wallets.BTC.address }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bridge-actions">
+                    <button id="startBridge" class="btn btn-primary">Generate Payment</button>
+                </div>
+            </section>
+
+            <section class="status-panel glass-card">
+                <h3>Trust Signals</h3>
+                <div class="stat-grid">
+                    <div>
+                        <span>Total Bridged</span>
+                        <strong>${{ stats.total_bridged | number_format }}</strong>
+                    </div>
+                    <div>
+                        <span>Active Users</span>
+                        <strong>{{ stats.active_users }}</strong>
+                    </div>
+                    <div>
+                        <span>Success Rate</span>
+                        <strong>{{ stats.success_rate }}%</strong>
+                    </div>
+                </div>
+                <div class="mini-card">
+                    <h4>Recent Activity</h4>
+                    <ul>
+                        {% for tx in stats.recent_transactions %}
+                        <li><strong>{{ tx.name }}</strong> {{ tx.amount }} {{ tx.crypto }} — {{ tx.status }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </section>
+        </main>
+
+        <div id="paymentCard" class="payment-card-sheet glass-card hidden">
+            <h3>Payment Instructions</h3>
+            <p>Send the exact amount below to the wallet address shown.
+            Then click <strong>"I Have Sent Payment"</strong> and paste your TXID.</p>
+            <div class="payment-summary">
+                <div><span>Payment ID</span><strong id="paymentId"></strong></div>
+                <div><span>Amount</span><strong id="paymentAmount"></strong></div>
+                <div><span>Currency</span><strong id="paymentCurrency"></strong></div>
+                <div><span>Expected receive</span><strong id="expectedReceive"></strong></div>
+                <div><span>Bridge fee</span><strong id="estimatedFee"></strong></div>
+                <div><span>Network</span><strong id="paymentNetwork"></strong></div>
+                <div><span>Wallet</span><code id="paymentAddress"></code></div>
+            </div>
+            <div class="tx-input">
+                <label>Transaction Hash (TXID)</label>
+                <input id="txHash" type="text" placeholder="0x..." />
+            </div>
+            <div class="bridge-actions">
+                <button id="confirmPayment" class="btn btn-primary disabled" disabled>I Have Sent Payment</button>
+            </div>
+            <div class="help-panel">
+                <p><strong>Note:</strong> This is a secure enterprise wallet. Use the exact amount and network only.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/bridge.js"></script>
+</body>
+</html>

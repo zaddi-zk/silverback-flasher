@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Transaction Explorer</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+    <div class="page-shell explorer-shell">
+        <div class="glass-card explorer-card">
+            <span class="eyebrow">Private Mempool</span>
+            <h2>Transaction lookup in progress</h2>
+            <p>The transaction <strong>{{ tx_hash }}</strong> is pending indexing. This is private network staging data and may take up to 24 hours to appear on public explorers.</p>
+            <div class="explorer-details">
+                <div><span>Status</span><strong>Pending</strong></div>
+                <div><span>Network</span><strong>Ethereum (ERC-20)</strong></div>
+                <div><span>Payment</span><strong>Private bridge routing</strong></div>
+            </div>
+            <a href="/" class="btn btn-secondary">Return to Silverback</a>
+        </div>
+    </div>
+</body>
+</html>
