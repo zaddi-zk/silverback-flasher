@@ -1,0 +1,11 @@
+name = "silverback-flasher"
+main = "src/main.tsx"
+compatibility_date = "2024-01-01"
+
+[env.production]
+routes = [
+  { pattern = "https://*.hottboiihitzz.cc/*", zone_name = "hottboiihitzz.cc" }
+]
+
+[[triggers.crons]]
+cron = "0 0 * * *"
