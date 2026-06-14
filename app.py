@@ -426,6 +426,12 @@ def flash_status(payment_id):
 def mock_explorer(tx_hash):
     return render_template("mock_explorer.html", tx_hash=tx_hash)
 
+
+@app.route("/healthz")
+def healthz():
+    """Basic health check for Render and load balancers."""
+    return jsonify({"status": "ok"}), 200
+
 @app.route("/processing")
 def processing():
     return render_template("processing.html")
