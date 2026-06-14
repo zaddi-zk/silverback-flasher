@@ -3,10 +3,16 @@ import json
 import requests
 from nacl import encoding, public
 
-owner = 'kirui58-sy'
-repo = 'silverback-flasher'
-pat = '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'
-new_token = 'cfat_dVPQ3BPpgliFFYMgEhdhrDkZPn4vJxmBsPxOHqqQ7d8daf6a'
+import os
+
+owner = os.environ.get('GITHUB_REPO_OWNER') or 'kirui58-sy'
+repo = os.environ.get('GITHUB_REPO_NAME') or 'silverback-flasher'
+pat = os.environ.get('GITHUB_PAT')
+new_token = os.environ.get('CLOUDFLARE_API_TOKEN')
+
+if not pat or not new_token:
+    print('Missing GITHUB_PAT or CLOUDFLARE_API_TOKEN in environment')
+    raise SystemExit(1)
 
 headers = {
     'Authorization': f'token {pat}',

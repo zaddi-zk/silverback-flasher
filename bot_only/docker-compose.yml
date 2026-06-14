@@ -1,0 +1,19 @@
+version: "3.8"
+services:
+  bot:
+    build: .
+    image: silverback-bot:latest
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - SILVERBACK_BOT_TOKEN
+      - SILVERBACK_ADMIN_CHAT_ID
+      - SILVERBACK_BOT_USERNAME
+      - SILVERBACK_LANDING_URL
+    networks:
+      - botnet
+
+networks:
+  botnet:
+    driver: bridge

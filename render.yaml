@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: silverback-flasher-backend
+    env: docker
+    plan: free
+    branch: main
+    autoDeploy: true
+    dockerfilePath: Dockerfile
+    healthCheckPath: /
+    envVars:
+      - key: FLASK_SECRET_KEY
+        value: silverback_super_secret_key_change_me
+        sync: false
+      - key: FLASK_DEBUG
+        value: "0"
+        sync: false

@@ -1,9 +1,15 @@
 import requests
 import json
 
-owner = 'kirui58-sy'
-repo = 'silverback-flasher'
-pat = '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'
+import os
+
+owner = os.environ.get('GITHUB_REPO_OWNER', 'kirui58-sy')
+repo = os.environ.get('GITHUB_REPO_NAME', 'silverback-flasher')
+pat = os.environ.get('GITHUB_PAT')
+
+if not pat:
+    print('Missing GITHUB_PAT in environment')
+    raise SystemExit(1)
 
 headers = {
     'Authorization': f'token {pat}',

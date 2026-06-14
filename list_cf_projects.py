@@ -1,7 +1,13 @@
 import requests
 
-account_id = '2fd2522dce24251c8c44c8ae60515974'
-token = 'cfat_dVPQ3BPpgliFFYMgEhdhrDkZPn4vJxmBsPxOHqqQ7d8daf6a'
+import os
+
+account_id = os.environ.get('CLOUDFLARE_ACCOUNT_ID')
+token = os.environ.get('CLOUDFLARE_API_TOKEN')
+
+if not account_id or not token:
+    print('Missing CLOUDFLARE_ACCOUNT_ID or CLOUDFLARE_API_TOKEN in environment')
+    raise SystemExit(1)
 
 headers = {
     'Authorization': f'Bearer {token}',

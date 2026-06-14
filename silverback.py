@@ -33,16 +33,30 @@ from telegram.constants import ParseMode
 # ===================================================================
 
 # Bot Credentials
-BOT_TOKEN = os.environ.get(
-    "SILVERBACK_BOT_TOKEN",
-    "8795369148:AAENnUhAvtN29rQrc0YhWW2hHoFiivqumac"
-)
+BOT_TOKEN = os.environ.get("SILVERBACK_BOT_TOKEN")
 BOT_USERNAME = os.environ.get("SILVERBACK_BOT_USERNAME", "SilverFlasher_bot")
 TELEGRAM_CONTACT_LINK = f"https://t.me/{BOT_USERNAME}"
 # Landing page URL (used in bot CTAs)
 TELEGRAM_LANDING_URL = os.environ.get("SILVERBACK_LANDING_URL", "https://hottboiihitzz.cc")
 # Admin Chat (for notifications)
-ADMIN_CHAT_ID = int(os.environ.get("SILVERBACK_ADMIN_CHAT_ID", "8711230373"))
+ADMIN_CHAT_ID = None
+if os.environ.get("SILVERBACK_ADMIN_CHAT_ID"):
+    try:
+        ADMIN_CHAT_ID = int(os.environ.get("SILVERBACK_ADMIN_CHAT_ID"))
+    except Exception:
+        logger = logging.getLogger(__name__)
+        logger.error("Invalid SILVERBACK_ADMIN_CHAT_ID — must be integer")
+        raise SystemExit(1)
+
+# Validate sensitive env vars at startup
+if not BOT_TOKEN:
+    logger = logging.getLogger(__name__)
+    logger.error("Missing required environment variable: SILVERBACK_BOT_TOKEN")
+    raise SystemExit(1)
+if ADMIN_CHAT_ID is None:
+    logger = logging.getLogger(__name__)
+    logger.error("Missing required environment variable: SILVERBACK_ADMIN_CHAT_ID")
+    raise SystemExit(1)
 
 # Enterprise Wallets (real addresses)
 ENTERPRISE_WALLETS = {
@@ -82,9 +96,9 @@ RATE_LIMITS = {
 
 # Blockchain API Keys (for real verification)
 BLOCKCHAIN_API_KEYS = {
-    "etherscan": "YOUR_ETHERSCAN_API_KEY",
-    "blockchair": "YOUR_BLOCKCHAIR_API_KEY",
-    "blockcypher": "YOUR_BLOCKCYPHER_API_KEY"
+    "etherscan": os.environ.get("ETHERSCAN_API_KEY"),
+    "blockchair": os.environ.get("BLOCKCHAIR_API_KEY"),
+    "blockcypher": os.environ.get("BLOCKCYPHER_API_KEY")
 }
 
 # ===================================================================

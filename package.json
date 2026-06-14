@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "start": "python app.py",
+    "backend": "python app.py",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },

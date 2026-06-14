@@ -1,7 +1,13 @@
 ﻿node_modules/
 dist/
 .venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
 silverback.log
 silverback_prod.db
+silverback_orders.db
+tmp_*.py
 .env
 

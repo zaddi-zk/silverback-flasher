@@ -37,7 +37,7 @@ The bot can run:
 
 **Option A: Locally (for testing)**
 ```powershell
-$env:SILVERBACK_BOT_TOKEN="8795369148:AAENnUhAvtN29rQrc0YhWW2hHoFiivqumac"
+$env:SILVERBACK_BOT_TOKEN="your_telegram_bot_token_here"
 $env:SILVERBACK_LANDING_URL="https://your-railway-url.railway.app"
 python silverback.py
 ```
@@ -56,8 +56,8 @@ Update these environment variables in Railway:
 ```
 TELEGRAM_BOT_URL=https://t.me/SilverFlasher_bot
 SILVERBACK_LANDING_URL=https://your-railway-url.railway.app
-SILVERBACK_BOT_TOKEN=8795369148:AAENnUhAvtN29rQrc0YhWW2hHoFiivqumac
-SILVERBACK_ADMIN_CHAT_ID=8711230373
+SILVERBACK_BOT_TOKEN=your_telegram_bot_token_here
+SILVERBACK_ADMIN_CHAT_ID=your_admin_chat_id_here
 ```
 
 ---

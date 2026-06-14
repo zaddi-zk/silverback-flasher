@@ -3,9 +3,306 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Silverback Bridge</title>
+    <title>Silverback Crypto Bridge</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/static/css/style.css" />
+    <style>
+        :root {
+            --primary: #a855f7;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --border: #334155;
+        }
+
+        .calculator-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .calc-input-card {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(59, 130, 246, 0.1));
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .amount-input {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            padding: 14px 16px;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .amount-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
+        }
+
+        .amount-presets {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .preset-btn {
+            background: rgba(168, 85, 247, 0.2);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 10px;
+            font-size: 13px;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .preset-btn:hover {
+            background: rgba(168, 85, 247, 0.3);
+            border-color: var(--primary);
+        }
+
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+        }
+
+        .method-btn {
+            background: rgba(59, 130, 246, 0.15);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .method-btn:hover {
+            border-color: var(--primary);
+            background: rgba(168, 85, 247, 0.2);
+        }
+
+        .method-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
+        }
+
+        .bonus-badge {
+            display: inline-block;
+            background: var(--success);
+            color: white;
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 3px;
+            margin-top: 4px;
+            font-weight: 600;
+        }
+
+        .calc-result-card {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(59, 130, 246, 0.1));
+            border: 2px solid var(--success);
+            border-radius: 12px;
+            padding: 24px;
+            backdrop-filter: blur(10px);
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .result-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .result-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .result-highlight {
+            color: var(--success);
+            font-size: 24px;
+        }
+
+        .multiplier-breakdown {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .breakdown-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .breakdown-row .label {
+            font-weight: 500;
+        }
+
+        .breakdown-row .value {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .error-message {
+            display: none;
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid var(--danger);
+            border-radius: 8px;
+            padding: 12px;
+            color: #fca5a5;
+            font-size: 13px;
+            margin-bottom: 16px;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .warning-banner {
+            background: rgba(245, 158, 11, 0.15);
+            border: 1px solid var(--warning);
+            border-radius: 8px;
+            padding: 12px;
+            color: #fcd34d;
+            font-size: 13px;
+            margin-bottom: 16px;
+            display: none;
+        }
+
+        .warning-banner.show {
+            display: block;
+        }
+
+        .rates-table {
+            width: 100%;
+            margin-top: 32px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .rates-table-header {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(59, 130, 246, 0.2));
+            padding: 16px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .rates-table-row {
+            padding: 12px 16px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 13px;
+        }
+
+        .rates-table-row:last-child {
+            border-bottom: none;
+        }
+
+        .deposit-range {
+            color: var(--text-secondary);
+        }
+
+        .multiplier-value {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 15px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary), #ec4899);
+            border: none;
+            border-radius: 8px;
+            padding: 16px;
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .submit-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.4);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+                    .order-info {
+                        color: var(--text-secondary);
+                        font-size: 14px;
+                        margin-top: 8px;
+                    }
+    </style>
 </head>
 <body>
     <div class="page-shell">
@@ -14,54 +311,115 @@
                 <div class="brand-mark">S</div>
                 <div>
                     <h1>Silverback</h1>
-                    <p>Bridge Interface</p>
+                    <p>Crypto Flash Bridge</p>
                 </div>
             </div>
-            <a href="/admin" class="btn btn-secondary">Admin</a>
+            <a href="#myOrders" class="btn btn-secondary">My Orders</a>
         </header>
 
-        <main class="bridge-shell">
-            <section class="bridge-panel glass-card">
-                <div class="panel-title">
-                    <h2>Step 1: Choose Your Bridge</h2>
-                    <p>Pick an amount and payment method to begin.</p>
-                </div>
-                <div class="bridge-grid">
-                    <div class="amount-card">
-                        <label>Bridge Amount</label>
-                        <div class="amount-options">
-                            <button class="amount-btn" data-value="100">$100</button>
-                            <button class="amount-btn" data-value="500">$500</button>
-                            <button class="amount-btn" data-value="2000">$2,000</button>
-                            <button class="amount-btn" data-value="10000">$10,000</button>
-                        </div>
-                        <div class="custom-input">
-                            <label>Custom amount</label>
-                            <input id="customAmount" type="number" min="20" placeholder="Enter USD amount" />
-                        </div>
-                    </div>
-                    <div class="payment-card">
-                        <label>Payment Method</label>
-                        <div class="payment-options">
-                            {% for code, wallet in wallets.items() %}
-                            <button class="payment-btn" data-currency="{{ code }}" data-address="{{ wallet.address }}">{{ code }}</button>
-                            {% endfor %}
-                        </div>
-                        <div class="selected-info">
-                            <p><strong>Selected:</strong> <span id="selectedCurrency">BTC</span></p>
-                            <p><strong>Wallet address:</strong></p>
-                            <p id="selectedAddress">{{ wallets.BTC.address }}</p>
-                        </div>
-                    </div>
-                </div>
+        <main class="bridge-shell" style="max-width: 1200px; margin: 0 auto; padding: 40px 20px;">
+            
+            <!-- Order Entry -->
+            <section style="margin-bottom: 40px;">
+                <h2 style="font-size: 28px; margin-bottom: 8px;">Flash Bridge Order</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 32px;">Submit your order and receive production-grade bridge pricing computed securely on the backend.</p>
 
-                <div class="bridge-actions">
-                    <button id="startBridge" class="btn btn-primary">Generate Payment</button>
+                <div class="calculator-section">
+                    <!-- Input Card -->
+                    <div class="calc-input-card">
+                        <div class="error-message" id="errorMessage"></div>
+                        <div class="warning-banner" id="warningBanner"></div>
+
+                        <!-- Deposit Amount -->
+                        <div class="form-group">
+                            <label>Deposit Amount (USD)</label>
+                            <div class="amount-presets">
+                                <button class="preset-btn" data-amount="50">$50</button>
+                                <button class="preset-btn" data-amount="100">$100</button>
+                                <button class="preset-btn" data-amount="500">$500</button>
+                                <button class="preset-btn" data-amount="1000">$1,000</button>
+                            </div>
+                            <input type="number" id="depositAmount" class="amount-input" 
+                                   placeholder="Enter amount (min $23, max $10,000)" 
+                                   min="23" max="10000" step="0.01" />
+                        </div>
+
+                        <!-- Payment Method -->
+                        <div class="form-group">
+                            <label>Payment Method</label>
+                            <div class="payment-methods" id="paymentMethods">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+
+                        <button class="submit-btn" id="initiatePaymentBtn" disabled>Create Order</button>
+                    </div>
+
+                    <!-- Result Card -->
+                    <div class="calc-result-card">
+                        <div id="resultContent" style="display: none;">
+                            <div class="multiplier-breakdown">
+                                <p style="margin: 0; color: var(--text-secondary); font-size: 14px; font-weight: 500;">Institutional Order Summary</p>
+                            </div>
+                            <div class="result-item">
+                                <span class="result-label">Deposit Amount</span>
+                                <span class="result-value">$<span id="previewDepositAmount">0</span></span>
+                            </div>
+                            <div class="result-item">
+                                <span class="result-label">Flash Amount</span>
+                                <span class="result-value result-highlight">$<span id="previewFlashAmount">0</span></span>
+                            </div>
+                            <div class="result-item">
+                                <span class="result-label">Payment Method</span>
+                                <span class="result-value" id="previewPaymentMethod">BTC</span>
+                            </div>
+                            <div class="breakdown-row" style="margin-top: 16px; padding-top: 12px; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                                <span class="label" style="color: var(--text-secondary);">Status</span>
+                                <span class="value" style="color: var(--success); font-weight: 700;">Ready to Submit</span>
+                            </div>
+                        </div>
+
+                        <div id="emptyState" style="text-align: center; padding: 40px 20px;">
+                            <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.6;">Enter a deposit amount and select a payment method to generate your institutional order summary.</p>
+                        </div>
+                    </div>
                 </div>
             </section>
 
-            <section class="status-panel glass-card">
-                <h3>Trust Signals</h3>
+            <section style="margin-bottom: 40px;">
+                <h3 style="font-size: 20px; margin-bottom: 16px;">Supported Payment Rails</h3>
+                <div class="rates-table">
+                    <div class="rates-table-header">
+                        <div>Asset</div>
+                        <div>Network</div>
+                        <div>Payment Bonus</div>
+                    </div>
+                    <div id="supportedRailsBody">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </section>
+
+            <section id="myOrders" style="margin-bottom: 40px;">
+                <h3 style="font-size: 20px; margin-bottom: 16px;">My Orders</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 16px;">Track your own orders and submit your transaction hash when payment is complete.</p>
+                <div class="rates-table" style="overflow-x:auto;">
+                    <div class="rates-table-header">
+                        <div>Payment ID</div>
+                        <div>Amount</div>
+                        <div>Currency</div>
+                        <div>Status</div>
+                        <div>TX Hash</div>
+                        <div>Created</div>
+                    </div>
+                    <div id="ordersBody"></div>
+                </div>
+                <p id="ordersEmpty" style="color: var(--text-secondary); margin-top: 20px;">No orders found yet. Create one and it will appear here.</p>
+            </section>
+
+            <!-- Trust Signals -->
+            <section class="status-panel glass-card" style="margin-bottom: 40px;">
+                <h3>Live Network Status</h3>
                 <div class="stat-grid">
                     <div>
                         <span>Total Bridged</span>
@@ -87,32 +445,253 @@
             </section>
         </main>
 
-        <div id="paymentCard" class="payment-card-sheet glass-card hidden">
-            <h3>Payment Instructions</h3>
-            <p>Send the exact amount below to the wallet address shown.
-            Then click <strong>"I Have Sent Payment"</strong> and paste your TXID.</p>
-            <div class="payment-summary">
-                <div><span>Payment ID</span><strong id="paymentId"></strong></div>
-                <div><span>Amount</span><strong id="paymentAmount"></strong></div>
-                <div><span>Currency</span><strong id="paymentCurrency"></strong></div>
-                <div><span>Expected receive</span><strong id="expectedReceive"></strong></div>
-                <div><span>Bridge fee</span><strong id="estimatedFee"></strong></div>
-                <div><span>Network</span><strong id="paymentNetwork"></strong></div>
-                <div><span>Wallet</span><code id="paymentAddress"></code></div>
-            </div>
-            <div class="tx-input">
-                <label>Transaction Hash (TXID)</label>
-                <input id="txHash" type="text" placeholder="0x..." />
-            </div>
-            <div class="bridge-actions">
-                <button id="confirmPayment" class="btn btn-primary disabled" disabled>I Have Sent Payment</button>
-            </div>
-            <div class="help-panel">
-                <p><strong>Note:</strong> This is a secure enterprise wallet. Use the exact amount and network only.</p>
+        <!-- Payment Confirmation Modal (Hidden) -->
+        <div id="paymentModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 1000; align-items: center; justify-content: center;">
+            <div class="glass-card" style="max-width: 500px; padding: 32px; margin: 20px;">
+                <h2 style="margin-bottom: 24px;">Payment Instructions</h2>
+                <div style="background: rgba(0,0,0,0.3); border-radius: 12px; padding: 20px; margin-bottom: 20px;">
+                    <div class="result-item">
+                        <span class="result-label">Payment ID</span>
+                        <span class="result-value" id="modalPaymentId">-</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Deposit Amount</span>
+                        <span class="result-value">$<span id="modalDepositAmount">0</span></span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Flash Amount</span>
+                        <span class="result-value result-highlight">$<span id="modalFlashAmount">0</span></span>
+                    </div>
+                    <div class="result-item" style="flex-direction: column; align-items: flex-start;">
+                        <span class="result-label" style="margin-bottom: 8px;">Wallet Address</span>
+                        <div style="display: flex; align-items: center; gap: 8px; width: 100%;">
+                            <span style="font-size: 12px; word-break: break-all; flex: 1; background: rgba(0,0,0,0.2); padding: 8px; border-radius: 6px;" id="modalWalletAddress">-</span>
+                            <button id="copyAddressBtn" style="background: var(--primary); border: none; color: white; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600; transition: all 0.2s; white-space: nowrap;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Copy</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" style="margin-bottom: 16px;">
+                    <label style="color: var(--text-secondary); margin-bottom: 8px; display: block; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Transaction Hash</label>
+                    <input id="modalTxHash" class="amount-input" type="text" placeholder="Paste your TX hash once payment is sent" />
+                </div>
+                <button class="submit-btn" id="submitTxHashBtn">Submit TX Hash</button>
+                <button class="submit-btn" style="margin-top: 12px; background: rgba(255,255,255,0.08); color: var(--text-primary);" onclick="document.getElementById('paymentModal').style.display='none'">Close</button>
             </div>
         </div>
     </div>
 
-    <script src="/static/js/bridge.js"></script>
+    <script>
+        const wallets = {{ wallets | tojson }};
+        let selectedCurrency = Object.keys(wallets)[0] || 'BTC';
+        let currentCalcResult = null;
+
+        // Initialize
+        function init() {
+            renderPaymentMethods();
+            renderSupportedRails();
+            setupEventListeners();
+            updateCalculation();
+        }
+
+        function renderPaymentMethods() {
+            const container = document.getElementById('paymentMethods');
+            container.innerHTML = '';
+            for (const [code, wallet] of Object.entries(wallets)) {
+                const btn = document.createElement('button');
+                btn.className = `method-btn ${code === 'BTC' ? 'active' : ''}`;
+                btn.dataset.currency = code;
+                btn.innerHTML = `
+                    ${code}
+                    <div class="bonus-badge">+${((wallet.bonus - 1) * 100).toFixed(0)}%</div>
+                `;
+                btn.onclick = () => selectMethod(code);
+                container.appendChild(btn);
+            }
+        }
+
+        function renderSupportedRails() {
+            const body = document.getElementById('supportedRailsBody');
+            body.innerHTML = '';
+            for (const [code, wallet] of Object.entries(wallets)) {
+                const row = document.createElement('div');
+                row.className = 'rates-table-row';
+                row.innerHTML = `
+                    <div><strong>${code}</strong></div>
+                    <div class="deposit-range">${wallet.network}</div>
+                    <div class="multiplier-value">+${((wallet.bonus - 1) * 100).toFixed(0)}%</div>
+                `;
+                body.appendChild(row);
+            }
+        }
+
+        function setupEventListeners() {
+            document.getElementById('depositAmount').addEventListener('input', updateCalculation);
+            document.querySelectorAll('.preset-btn').forEach(btn => {
+                btn.onclick = () => {
+                    document.getElementById('depositAmount').value = btn.dataset.amount;
+                    updateCalculation();
+                };
+            });
+            document.getElementById('initiatePaymentBtn').addEventListener('click', initiatePayment);
+            document.getElementById('submitTxHashBtn').addEventListener('click', submitTxHash);
+        }
+
+        function selectMethod(code) {
+            selectedCurrency = code;
+            document.querySelectorAll('.method-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.currency === code);
+            });
+            updateCalculation();
+        }
+
+        function updateCalculation() {
+            const deposit = parseFloat(document.getElementById('depositAmount').value) || 0;
+            const errorMsg = document.getElementById('errorMessage');
+            const warningBanner = document.getElementById('warningBanner');
+            const resultContent = document.getElementById('resultContent');
+            const emptyState = document.getElementById('emptyState');
+            const btn = document.getElementById('initiatePaymentBtn');
+
+            errorMsg.classList.remove('show');
+            warningBanner.classList.remove('show');
+
+            if (deposit === 0) {
+                resultContent.style.display = 'none';
+                emptyState.style.display = 'block';
+                btn.disabled = true;
+                return;
+            }
+
+            fetch('/api/calculate', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({deposit, currency: selectedCurrency})
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (!data.success) {
+                    errorMsg.textContent = data.error;
+                    errorMsg.classList.add('show');
+                    resultContent.style.display = 'none';
+                    emptyState.style.display = 'block';
+                    btn.disabled = true;
+                    return;
+                }
+
+                currentCalcResult = data;
+
+                if (data.warning) {
+                    warningBanner.textContent = data.warning;
+                    warningBanner.classList.add('show');
+                }
+
+                document.getElementById('previewDepositAmount').textContent = data.deposit.toFixed(2);
+                document.getElementById('previewFlashAmount').textContent = data.flash_amount.toFixed(2);
+                document.getElementById('previewPaymentMethod').textContent = data.payment_method;
+
+                resultContent.style.display = 'block';
+                emptyState.style.display = 'none';
+                btn.disabled = false;
+            });
+        }
+
+        function initiatePayment() {
+            const deposit = parseFloat(document.getElementById('depositAmount').value);
+            
+            fetch('/initiate-payment', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({amount: deposit, currency: selectedCurrency})
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('modalPaymentId').textContent = data.payment_id;
+                    document.getElementById('modalDepositAmount').textContent = data.deposit_amount.toFixed(2);
+                    document.getElementById('modalFlashAmount').textContent = data.flash_amount.toFixed(2);
+                    document.getElementById('modalTxHash').value = '';
+                    const walletAddr = document.getElementById('modalWalletAddress');
+                    walletAddr.textContent = data.wallet_address;
+                    document.getElementById('paymentModal').style.display = 'flex';
+                    refreshOrders();
+                    
+                    document.getElementById('copyAddressBtn').onclick = function() {
+                        navigator.clipboard.writeText(data.wallet_address).then(() => {
+                            const btn = this;
+                            const originalText = btn.textContent;
+                            btn.textContent = 'Copied!';
+                            setTimeout(() => { btn.textContent = originalText; }, 2000);
+                        }).catch(err => console.error('Copy failed:', err));
+                    };
+                } else {
+                    alert('Error: ' + (data.message || data.error));
+                }
+            });
+        }
+
+        function submitTxHash() {
+            const paymentId = document.getElementById('modalPaymentId').textContent;
+            const txHash = document.getElementById('modalTxHash').value.trim();
+
+            if (!paymentId || paymentId === '-') {
+                alert('No payment selected to confirm.');
+                return;
+            }
+            if (!txHash) {
+                alert('Please enter your transaction hash before submitting.');
+                return;
+            }
+
+            fetch('/confirm-payment', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({payment_id: paymentId, tx_hash: txHash})
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (data.success) {
+                    refreshOrders();
+                    document.getElementById('paymentModal').style.display = 'none';
+                    document.getElementById('modalTxHash').value = '';
+                    alert('TX hash submitted successfully. The order modal has been closed.');
+                } else {
+                    alert('Error: ' + (data.message || data.error));
+                }
+            });
+        }
+
+        function refreshOrders() {
+            fetch('/api/my-orders')
+                .then(r => r.json())
+                .then(data => {
+                    const body = document.getElementById('ordersBody');
+                    const empty = document.getElementById('ordersEmpty');
+
+                    if (!data.success || !Array.isArray(data.orders) || data.orders.length === 0) {
+                        body.innerHTML = '';
+                        empty.style.display = 'block';
+                        return;
+                    }
+
+                    empty.style.display = 'none';
+                    body.innerHTML = data.orders.map(order => `
+                        <div class="rates-table-row">
+                            <div>${order.payment_id}</div>
+                            <div>$${parseFloat(order.amount).toFixed(2)}</div>
+                            <div>${order.currency}</div>
+                            <div>${order.status}</div>
+                            <div>${order.tx_hash || 'Pending'}</div>
+                            <div>${new Date(order.created_at).toLocaleString()}</div>
+                        </div>
+                    `).join('');
+                })
+                .catch(err => {
+                    console.error('Failed to load orders:', err);
+                });
+        }
+
+        init();
+        refreshOrders();
+    </script>
 </body>
 </html>

@@ -1,6 +1,15 @@
+import os
 import requests, time
-owner='kirui58-sy'; repo='silverback-flasher'; pat='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'
-headers={'Authorization':f'token {pat}','Accept':'application/vnd.github+json'}
+
+owner = os.environ.get('GITHUB_REPO_OWNER', 'kirui58-sy')
+repo = os.environ.get('GITHUB_REPO_NAME', 'silverback-flasher')
+pat = os.environ.get('GITHUB_PAT')
+
+if not pat:
+    print('Missing GITHUB_PAT in environment')
+    raise SystemExit(1)
+
+headers = {'Authorization': f'token {pat}', 'Accept': 'application/vnd.github+json'}
 
 def latest_run():
     r=requests.get(f'https://api.github.com/repos/{owner}/{repo}/actions/runs?branch=main', headers=headers)
